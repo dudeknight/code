@@ -1,0 +1,9 @@
+Exception: STATUS_ACCESS_VIOLATION at eip=00401288
+eax=17AE0000 ebx=00000000 ecx=00018900 edx=17380000 esi=6127ADAC edi=6119FE7F
+ebp=0022AC68 esp=0022AC30 program=C:\cygwin\home\dvdreddy\acm\a.exe, pid 4976, thread main
+cs=001B ds=0023 es=0023 fs=003B gs=0000 ss=0023
+Stack trace:
+Frame     Function  Args
+0022AC68  00401288  (00000001, 0022AC90, 20010100, 6127A36E)
+0022ACF8  610070D8  (00000000, 0022CD78, 610066D0, 00000000)
+End of stack trace

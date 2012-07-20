@@ -1,0 +1,47 @@
+3
+3 6
+abDefb
+bSpoon
+NIKHil
+6 6
+aaaaaa
+ssssss
+xuisdP
+oooooo
+ioowoo
+bdylan
+6 5
+bdfhj
+cacac
+opqrs
+ddddd
+india
+yucky
+
+(((a>b)>c)>(a>(d>((a>c)>F))))
+
+(((p>F)>F)>((p>q)>q))
+
+(((p>F)>(q>r))>(((p>F)>q)>((p>F)>r)))
+
+(((p>q)^(q>r))>(p>r))
+
+ (((q>(p>F))>F)>p)
+
+ (((q>(p>F))>F)>((p>(q>F))>F))
+ 
+
+((A>(B>C))>((((A>B)>(A>C))>D)>D))
+
+
+((((p>q)>((q>r)>F))>F)>(p>r))
+
+
+
+
+
+
+
+(((((p>F)>q)>F)>r)>(((((p>F)>(r>F))>F)>s)>((((p>F)>q)>F)>s)))
+
+(((((p>F)>q)>F)>r)>((p>F)>((q>F)>r)))
