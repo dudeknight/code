@@ -19,7 +19,7 @@ using namespace std;
 #define sf(x) scanf("%lf",&x)
 #define ss(x) scanf("%s",&x)
 
-#define f(i,a,b) for(int i=a;i<b;i++)
+#define f(i,a,b) for(ll i=a;i<b;i++)
 #define fr(i,n)  f(i,0,n)
 
 #define nsize 10000
@@ -40,7 +40,6 @@ int m, n;
 // strutures required for bfs
 queue<int> q;
 bool disc[nsize];
-int pred[nsize];
 ll dp[nsize];
 int in_deg[nsize];
 bool tagged[nsize];
@@ -88,6 +87,8 @@ void bfs(int start){
   }
   disc[start] = true;
   dp[start] = 1;
+  bool change = false;
+  int change_val = -1;
   while (!q.empty()){
     int cur = q.front(); bool add = false;
     q.pop();
@@ -101,12 +102,28 @@ void bfs(int start){
 	dp[cur] %= mod;
       }
       add = true;
+      change = true;
+      if (tagged[cur] && change_val == cur){
+	change_val = -1;
+	change = false;
+      }
+      if (cur == n - 1)
+	break;
     } else {
       if (tagged[cur]){
-	dp[cur] = -1;
-	add = true;
+	if (!change && change_val == cur){
+	  dp[cur] = -1;
+	  add = true;
+	  change = false;
+	  change_val = -1;
+	}
+	q.push(cur);
       } else {
 	tagged[cur] = true;
+	if (change_val == -1){
+	  change_val = 1;
+	  change = false;
+	}
 	q.push(cur);
       }
     }
