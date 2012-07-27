@@ -22,43 +22,79 @@ using namespace std;
 #define f(i,a,b) for(int i=a;i<b;i++)
 #define fr(i,n)  f(i,0,n)
  
-typedef unsigned long long ll;
+typedef long long ll;
  
 ll mod = 1000000007;
+
+int mat_size;
  
-ll mat1[2][2];
-ll mat2[2][2];
-ll fact[2][2];
-ll tmp[2][2];
- 
+ll mat1[50][50];
+ll mat2[50][50];
+ll fact[50][50];
+ll tmp[50][50];
+ll resm[50][50]; 
+
+ll res[50];
+ll init_set[50];
+
 void init(){
-  mat1[0][0] = (ll)2;
-  mat1[0][1] = (ll)2;
-  mat1[1][0] = (ll)1;
-  mat1[1][1] = (ll)0;
+  fr (i, mat_size){
+    fr (j, mat_size){
+      fact[i][j] = 0;
+    }
+  }
+  fact[0][0] = 1;
+  fact[0][1] = 1;
+  fact[0][mat_size - 1] = 1;
+  f (i, 1, mat_size - 1){
+    fr(j, mat_size){
+      fact[i][j] = fact[i - 1][j];
+    }
+    fact[i][i] += 1;
+    fact[i][i + 1] += 1;
+  }
+
+  fr (j, mat_size){
+    fact[mat_size - 1][j] = fact[mat_size - 2][j] + fact[0][j];
+  }
+  fact[mat_size - 1][mat_size - 1] += 1;
+  
+  fr (i, mat_size){
+    fr (j, mat_size){
+      mat1[i][j] = fact[i][j];
+      resm[i][j] = 0; 
+    }
+    resm[i][i] = 1;
+  }
 }
- 
+
 void equalize(int x){
   if (x == 0) {
-    fr (i, 2){
-      fr (j, 2){
+    fr (i, mat_size){
+      fr (j, mat_size){
 	mat2[i][j] = mat1[i][j];
       }
     }
   } else if (x == 1) {
-    fr (i, 2){
-      fr (j, 2){
+    fr (i, mat_size){
+      fr (j, mat_size){
 	mat2[i][j] = fact[i][j];
+      }
+    }
+  } else if (x == 2){
+    fr (i, mat_size){
+      fr (j, mat_size){
+	mat2[i][j] = resm[i][j];
       }
     }
   }
 }
  
-void multiply(){
-  fr (i, 2){
-    fr (j, 2){
+void multiply(int x){
+  fr (i, mat_size){
+    fr (j, mat_size){
       tmp[i][j] = 0;
-      fr(k, 2){
+      fr(k, mat_size){
 	ll x = (mat1[i][k] * mat2[k][j]) % mod;
 	tmp[i][j] += x;
 	tmp[i][j] %= mod;
@@ -66,59 +102,87 @@ void multiply(){
     }
   }
   
-  fr (i, 2){
-    fr (j, 2){
-      mat1[i][j] = tmp[i][j];
+  if (x == 1){
+    fr (i, mat_size){
+      fr (j, mat_size){
+	mat1[i][j] = tmp[i][j];
+      }
+    }
+  } else if (x == 2){
+    fr (i, mat_size){
+      fr (j, mat_size){
+	resm[i][j] = tmp[i][j];
+      }
     }
   }
 }
  
-void raise(ll n){
-  ll rsp = n - (ll)3;
+void raise(ll p){
   init();
   equalize(1);
-  ll  cur_pow = rsp;
-  while (cur_pow > 1){
+  ll  cur_pow = p;
+  while (cur_pow){
     if (cur_pow & 1){
-      equalize(0);
-      multiply();
-      equalize(1);
-    } else {
-      equalize(0);
-    } 
-    multiply();
+      equalize(2);
+      multiply(2);
+    }
+    equalize(0);
+    multiply(1);
     cur_pow = cur_pow >> 1;
+  }
+}
+
+void compute_res(int start, int p_res){
+  fr (i, mat_size){
+    tmp[0][i] = init_set[(i + start) % mat_size];
+    tmp[0][i] %= mod;
+  }
+  
+  fr (i, mat_size){
+    tmp[1][i] = 0;
+    fr (j, mat_size){
+      tmp[1][i] += resm[i][j] * tmp[0][j];
+      tmp[1][i] %= mod;
+    }
+  }
+  
+  fr (i, p_res){
+    tmp[1][i] += tmp[1][i + 1] + tmp[1][((mat_size + i - 1) % mat_size)];
+    tmp[1][i] %= mod;
+  }
+  
+  fr (i, mat_size){
+    res[(i + start) % mat_size] = tmp[1][i];
   }
 }
  
 int main(){
-  fact[0][0] = (ll)2;
-  fact[0][1] = (ll)2;
-  fact[1][0] = (ll)1;
-  fact[1][1] = (ll)0;
   
-  int t; ll x; ll res;
-  s(t); 
+  int t; ll x;
+  s(t);
   if (t == 0){
     return 0;
   }
   while (t--){
-    sll(x);
-    if (x == 1) {
-      printf("1\n");
-      continue;
-    } else if (x == 2) { 
-      printf("3\n");
-      continue;
-    } else if (x == 3) {
-      printf("8\n");
-      continue;
+    sll(mat_size); sll(x);
+    fr (i, mat_size){
+      sll(init_set[i]);
     }
-    raise(x);
-    res = (mat1[0][0] + mat1[1][0]) * (ll)6 
-      +  (mat1[0][1] + mat1[1][1]) * (ll) 2 ;
-    res %= mod;
-    printf("%lld\n",res);  
+    raise(x/mat_size);
+    int p_res = x % mat_size;
+    fr (i, mat_size){
+      compute_res(i, p_res);
+      fr (j, mat_size){
+	if (j){
+	  printf(" ");
+	}
+	printf("%lld",res[j]);
+      }
+      printf("\n");
+    }
+    if (t){
+      printf("\n");
+    }
   }
   return 0;
-}   
+}
