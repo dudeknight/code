@@ -10,6 +10,7 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 
+
 import string
 
 def toint(s): return int(s)
@@ -30,6 +31,21 @@ def get_line_float():
     return arr
 
 def main():
+    t = get_int()
+    while t:
+        n = get_int()
+        res = 0
+        cur = 1
+        cnt = 1
+        while n != 0:
+            if (n%2 == 1):
+                res += cur
+            if (cnt >= 12):
+                cur *= 2
+            n /= 2
+            cnt += 1
+        print res
+        t -= 1
     pass
 
 if __name__ == '__main__':

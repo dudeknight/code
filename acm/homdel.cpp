@@ -23,13 +23,31 @@ using namespace std;
 #define fr(i,n)  f(i,0,n)
 
 typedef long long ll;
+int dp[250][250];
 
 int main(){
-  printf("%05d\n", 7);
-  ll x = 10000032;
-  ll y = 129999232;
-  ll z = 93409434;
-  
-  printf("%lld\n", (((x - y + z) % 93409434) + z) % z);
+  int n;
+  s(n);
+  fr (i, n){
+    fr (j, n){
+      s(dp[i][j]);
+    }
+  }
+
+  fr (k, n){
+    fr (i, n){
+      fr (j, n){
+	dp[i][j] = min(dp[i][j], dp[i][k] + dp[k][j]);
+      }
+    }
+  }
+
+  int t;
+  int a, b, c;
+  s(t);
+  while (t--){
+    s(a); s(b); s(c);
+    printf("%d %d\n",dp[a][b] + dp[b][c], dp[a][b] + dp[b][c] - dp[a][c]);
+  }
   return 0;
 }

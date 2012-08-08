@@ -12,6 +12,9 @@
 
 
 import string
+import re
+import math
+
 
 def toint(s): return int(s)
 def tofloat(s): return float(s)
@@ -32,6 +35,7 @@ def get_line_float():
 
 
 def main():
+    
     t=get_int()
     cnt=1
     while t:
