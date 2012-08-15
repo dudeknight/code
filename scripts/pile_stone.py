@@ -30,25 +30,22 @@ def get_line_float():
     return arr
 
 def main():
-    arr =get_line_int()
-    n = arr[0]
-    q = arr[1]
-    k = int(math.sqrt(n))
-    k += 1
-    a = [0] * k
-    b = [0] * k
-    c = [0] * k
-    s = raw_input()
-    for i in range(n):
-
-    s = raw_input()
-    for i in range(n):
-
-    for i in range(n):
-        
-    while q:
-
-        q -= 1
+    t = get_int()
+    while t:
+        arr = get_int()
+        arr = get_line_int()
+        res = 0
+        for i in arr:
+            if (i > 4):
+                res = 0;
+                break;
+            if (i > 2):
+                res += i - 2
+        if (res % 2 == 0):
+            print 'BOB'
+        else :
+            print 'ALICE'
+        t -= 1
     pass
 
 if __name__ == '__main__':
