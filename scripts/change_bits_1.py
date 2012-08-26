@@ -31,10 +31,10 @@ def get_line_float():
     return arr
 
 def main():
-    arr =get_line_int()
+    arr = get_line_int()
     n = arr[0]
     q = arr[1]
-    k = min(int(math.sqrt(n)), 59)
+    k = int(math.sqrt(n))
     k += 1
     a = [0] * (n / k + 1)
     b = [0] * (n / k + 1)
@@ -50,6 +50,7 @@ def main():
     cnt2 = 0;
     res = 0;
     mult = 1;
+    change_flag = True;
     for i in range(n):
         if (cnt1 == k):
             a[cnt2] = res;
@@ -60,6 +61,7 @@ def main():
         mult *= 2;
     a[cnt2] = res;
     lena = cnt2 + 1;
+    min_index = 0;
     # for filling the b
     cnt1 = 0; cnt2 = 0; res = 0; mult = 1;
     s = raw_input()
@@ -76,21 +78,24 @@ def main():
     # for filling the c
     imp1 = 1 << (k);
     imp2 = imp1 - 1;
-    res = 0;
-    for i in range(lena):
-        c[i] =  a[i] + b[i] + res;
-        if (i < lena - 1):
-            res = c[i] & imp1;
-            if (res != 0):
-                res = 1;
-                c[i] = c[i] & imp2;
     fin_res = ''
     while q:
         s = raw_input()
         arr = string.split(s)
         if (arr[0] == 'get_c'):
+            if (change_flag):
+                res = 0;
+                for i in range(min_index, lena):
+                    c[i] =  a[i] + b[i] + res;
+                    if (i < lena - 1):
+                        res = c[i] & imp1;
+                        if (res != 0):
+                            res = 1;
+                            c[i] = c[i] & imp2;
+                min_index = lena
+                change_flag = False
             ind = int(arr[1]);
-            res = c[ind / k] & (1 << (ind % k))
+            res = c[ind / k] & (d[ind % k])
             if (res != 0):
                 res = 1;
             fin_res = fin_res + str(res)
@@ -103,16 +108,9 @@ def main():
                 if (res != 0):
                     res = 1
                 if (res != val):
-                    b[ind / k] = b[ind / k] ^ (1 << (ind % k))
-                    res = 0;
-                    for i in range(ind / k, lena):
-                        c[i] =  a[i] + b[i] + res;
-                        if (i < lena - 1):
-                            res = c[i] & imp1;
-                            if (res != 0):
-                                res = 1;
-                                c[i] = c[i] & imp2;
-
+                    b[ind / k] = b[ind / k] ^ (d[ind % k])
+                    min_index = min(min_index, ind / k)
+                    change_flag = True;
             else:
                 val = int(arr[2]);
                 ind = int(arr[1]);
@@ -120,15 +118,9 @@ def main():
                 if (res != 0):
                     res = 1
                 if (res != val):
-                    a[ind / k] = a[ind / k] ^ (1 << (ind % k))
-                    res = 0;
-                    for i in range(ind / k, lena):
-                        c[i] =  a[i] + b[i] + res;
-                        if (i < lena - 1):
-                            res = c[i] & imp1;
-                            if (res != 0):
-                                res = 1;
-                                c[i] = c[i] & imp2;
+                    a[ind / k] = a[ind / k] ^ (d[ind % k])
+                    min_index = min(min_index, ind / k)
+                    change_flag = True;
         q -= 1
     print fin_res
     pass
