@@ -1,5 +1,6 @@
+// written by lonerdude(dvdreddy)
+// all rights reserved
 //the template by dvdreddy
-
 #include <vector>
 #include <queue>
 #include <deque>
