@@ -21,32 +21,42 @@ using namespace std;
 #define ss(x) scanf("%s",&x)
 
 #define f(i,a,b) for(int i=a;i<b;i++)
+#define rf(i,a,b) for(int i=a-1;i>=b;i--)
+#define rfr(i,n) rf(i,n,0)
 #define fr(i,n)  f(i,0,n)
 
 typedef long long ll;
 
+
 int main(){
-  int t, n, res;
+  int t, n;
   s(t);
-  ll a[100000];
-  ll b[100000];
-  while(t--){
+  int  a[150][150];
+  while (t--){
     s(n);
     fr (i, n){
-      sll(a[i]);
-    }
-    
-    b[0] = a[0];
-    f (i, 1, n){
-      b[i] = min(a[i], b[i - 1]);
-    }
-    res = 0;
-    fr (i, n){
-      if (b[i] == a[i]){
-	res++;
+      fr (j, n){
+	s(a[i][j]);
       }
     }
-    printf("%d\n", res);
+
+    rf(i, n - 1, 0){
+      a[i][n - 1] = a[i][n - 1] + a[i + 1][n - 1];
+    }
+
+    rf(i, n - 1, 0){
+      a[n - 1][i] += a[n - 1][i + 1];
+      rfr(j, n - 1){
+	a[j][i] += max(a[j][i + 1], a[j + 1][i]);
+      }
+    }
+
+    if (a[0][0] >= 0){
+      float x = ((float)a[0][0])/(float) (2 * n - 3);
+      printf("%.8f\n",x);
+    } else {
+      printf("Bad Judges\n");
+    }
   }
   return 0;
 }
