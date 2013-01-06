@@ -30,6 +30,33 @@ def get_line_float():
     return arr
 
 def main():
+    arr = get_line_int()
+    n = arr[0]
+    m = arr[1]
+    mod = 1009
+    a = [1] * 1020
+    arr = get_line_int()
+    res = 0
+    y = m / mod
+    y %= mod
+    x = m % mod
+    for i in range(n + 1):
+        cnt = 0
+        for j in range(mod):
+            cnt += a[j]
+            cnt %= mod
+        res += (y * cnt * arr[n - i])
+        res %= mod
+        cnt = 0
+        for j in range((x + 1) % mod):
+            cnt += a[j]
+            cnt %= mod
+        res += (cnt * arr[n - i])
+        res %= mod
+        for j in range(mod):
+            a[j] *= j;
+            a[j] %= mod
+    print res
     pass
 
 if __name__ == '__main__':

@@ -30,6 +30,21 @@ def get_line_float():
     return arr
 
 def main():
+    t = get_int()
+    while t:
+        g = get_int()
+        while g:
+            arr = get_line_int()
+            n = arr[1]
+            if (n % 2 == 0):
+                print n / 2
+            else :
+                if (arr[0] == arr[2]):
+                    print n / 2
+                else :
+                    print (n + 1) / 2
+            g -= 1
+        t -= 1
     pass
 
 if __name__ == '__main__':

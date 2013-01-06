@@ -30,6 +30,23 @@ def get_line_float():
     return arr
 
 def main():
+    cnt = 1
+    s = set()
+    s.add((1, 2))
+    print s
+    modi = 142857
+    for i in range(2, 1042857):
+        cnt = cnt * i
+        cnt = cnt % modi
+        t = (cnt, (i + 1) % modi)
+        print i
+        if t in s:
+            print 'hey found',i
+            print t
+            break
+        else:
+            s.add(t)
+
     pass
 
 if __name__ == '__main__':

@@ -26,35 +26,63 @@ typedef unsigned long long ll;
  
 ll mod = 1000000007;
  
-ll mat1[2][2];
-ll mat2[2][2];
-ll fact[2][2];
-ll tmp[2][2];
-ll resm[2][2]; 
+ll mat1[64][64];
+ll mat2[64][64];
+ll fact[64][64];
+ll tmp[64][64];
+ll resm[64][64]; 
+
+
+int a;ll b;
+
+int n;
 
 void init(){
-  mat1[0][0] = 1; resm[0][0] = 1;
-  mat1[0][1] = 1; resm[0][1] = 0;
-  mat1[1][0] = 1; resm[1][0] = 0;
-  mat1[1][1] = 0; resm[1][1] = 1;
+  n = 1 << a;
+  int tmpa[a];
+  int tmpb[a];
+  fr (i, n){
+    fr (j, n){
+      int x = i ^ j;
+      int y = i;
+      fr (k, a){
+	tmpa[k] = x % 2;
+	tmpb[k] = y % 2;
+	x /= 2;
+	y /= 2;
+      }
+      bool flg = true;
+      fr (k, a - 1){
+	if (tmpa[k] == 0 && tmpa[k + 1] == 0 && tmpb[k] == tmpb[k + 1]){
+	  flg = false;
+	  break;
+	}
+      }     
+      mat1[i][j] = (int) flg;
+      if (i != j)
+	resm[i][j] = 0;
+      else 
+	resm[i][i] = 1;
+    }
+  }
 }
  
 void equalize(int x){
   if (x == 0) {
-    fr (i, 2){
-      fr (j, 2){
+    fr (i, n){
+      fr (j, n){
 	mat2[i][j] = mat1[i][j];
       }
     }
   } else if (x == 1) {
-    fr (i, 2){
-      fr (j, 2){
+    fr (i, n){
+      fr (j, n){
 	mat2[i][j] = fact[i][j];
       }
     }
   } else if (x == 2){
-    fr (i, 2){
-      fr (j, 2){
+    fr (i, n){
+      fr (j, n){
 	mat2[i][j] = resm[i][j];
       }
     }
@@ -62,10 +90,10 @@ void equalize(int x){
 }
  
 void multiply(int p){
-  fr (i, 2){
-    fr (j, 2){
+  fr (i, n){
+    fr (j, n){
       tmp[i][j] = 0;
-      fr(k, 2){
+      fr(k, n){
 	ll x = (mat1[i][k] * mat2[k][j]) % mod;
 	tmp[i][j] += x;
 	tmp[i][j] %= mod;
@@ -74,25 +102,22 @@ void multiply(int p){
   }
   
   if (p == 1){
-    fr (i, 2){
-      fr (j, 2){
+    fr (i, n){
+      fr (j, n){
 	mat1[i][j] = tmp[i][j];
       }
     }
   } else if (p == 2){
-    fr (i, 2){
-      fr (j, 2){
+    fr (i, n){
+      fr (j, n){
 	resm[i][j] = tmp[i][j];
       }
     }
   }
 }
  
-void raise(ll n){
-  ll rsp = n - (ll)3;
-  init();
-  equalize(1);
-  ll  cur_pow = rsp;
+void raise(ll x){
+  ll  cur_pow = x;
   while (cur_pow){
     if (cur_pow & 1){
       equalize(2);
@@ -105,18 +130,18 @@ void raise(ll n){
 }
  
 int main(){
-  fact[0][0] = (ll)1;
-  fact[0][1] = (ll)1;
-  fact[1][0] = (ll)1;
-  fact[1][1] = (ll)0;
-  
-  int t; ll x; ll res;
-  s(t); 
-  while (t--){
-    sll(x);
-    raise(x + 5);
-    res = resm[0][0] - 2;
-    printf("%lld\n",res);  
+  s(a); sll(b);
+  init();
+
+  raise(b - 1);
+  ll res = 0;
+
+  fr (i, n){
+    fr (j, n){
+      res += resm[i][j];
+      res %= mod;
+    }
   }
+  printf("%lld\n", res);
   return 0;
 }
