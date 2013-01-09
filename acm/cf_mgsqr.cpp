@@ -24,3 +24,30 @@ using namespace std;
 #define fr(i,n)  f(i,0,n)
 
 typedef long long ll;
+
+
+int main(){
+  int dp[3][3];
+  int a[3];
+  int tot_sum = 0;
+  fr (i, 3){
+    a[i] = 0;
+    fr (j, 3){
+      si(dp[i][j]);
+      a[i] += dp[i][j];
+      tot_sum += dp[i][j];
+    }
+  }
+  tot_sum /= 2;
+  fr (i, 3){
+    dp[i][i] = tot_sum - a[i];
+  }
+
+  fr (i, 3){
+    fr (j, 3){
+      cout << dp[i][j] << " ";
+    }
+    cout << endl;
+  }
+  return 0;
+}

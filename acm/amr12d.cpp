@@ -24,3 +24,25 @@ using namespace std;
 #define fr(i,n)  f(i,0,n)
 
 typedef long long ll;
+
+int main(){
+  int t;
+  si(t)
+  while (t--){
+    bool b; 
+    b = true;
+    string s; cin >> s;
+    int n = s.size();
+    fr (i, n){
+      if (s[i] != s[n - 1 - i]){
+	b = false;
+      }
+    }
+    if (b){
+      printf("YES\n");
+    } else {
+      printf("NO\n");
+    }
+  }
+  return 0;
+}
