@@ -12,7 +12,7 @@
 
 import string
 
-def toint(s): return long(s)
+def toint(s): return int(s)
 def tofloat(s): return float(s)
 
 def get_int():
@@ -30,22 +30,16 @@ def get_line_float():
     return arr
 
 def main():
-    n = get_int()
-    a = []
-    b = []
-    for i in range(n):
+    t = get_int()
+    while t:
+        n = get_int()
         arr = get_line_int()
-        a.append(arr[0] + arr[1])
-        b.append(arr[1] - arr[0])
-    a = sorted(a)
-    b = sorted(b)
-    res = 0
-    temp = 0
-    x = a[n / 2]
-    y = b[n / 2]
-    for i in range(n):
-        res += abs(a[i] - x) + abs(b[i] - y)
-    print res/2
+        arr = sorted(arr)
+        d = arr[1] - arr[0]
+        for i in range(1, n - 1):
+            d = min(arr[i + 1] - arr[i], d)
+        print d
+        t -= 1
     pass
 
 if __name__ == '__main__':

@@ -15,7 +15,7 @@
 
 using namespace std;
 
-#define s(x) scanf("%d",&x)
+#define si(x) scanf("%d",&x)
 #define sll(x) scanf("%lld",&x)
 #define sf(x) scanf("%lf",&x)
 #define ss(x) scanf("%s",&x)

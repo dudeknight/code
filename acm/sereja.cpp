@@ -4,6 +4,7 @@
 #include <vector>
 #include <queue>
 #include <deque>
+#include <stack>
 #include <map>
 #include <iostream>
 #include <cstring>
@@ -25,28 +26,33 @@ using namespace std;
 
 typedef long long ll;
 
+#define size 100000
+
+ll mod = 1000000007;
+
 int main(){
-  int t, n, res;
-  s(t);
-  ll a[100000];
-  ll b[100000];
-  while(t--){
-    s(n);
-    fr (i, n){
-      sll(a[i]);
-    }
-    
-    b[0] = a[0];
-    f (i, 1, n){
-      b[i] = min(a[i], b[i - 1]);
-    }
-    res = 0;
-    fr (i, n){
-      if (b[i] == a[i]){
-	res++;
-      }
-    }
-    printf("%d\n", res);
+  int n;
+  s(n);
+  ll a[size];
+
+  fr (i, n){
+    sll(a[i]);
   }
+  
+
+  ll dp[size];
+
+  dp[0] = 1;
+
+  stack<ll> minq;
+  stack<ll> maxq;
+
+  f (i, 1, n){
+    
+
+
+  }
+
+  cout << dp[n - 1] << endl;
   return 0;
 }

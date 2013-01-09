@@ -15,7 +15,7 @@
 
 using namespace std;
 
-#define s(x) scanf("%d",&x)
+#define si(x) scanf("%d",&x)
 #define sll(x) scanf("%lld",&x)
 #define sf(x) scanf("%lf",&x)
 #define ss(x) scanf("%s",&x)
@@ -25,28 +25,29 @@ using namespace std;
 
 typedef long long ll;
 
+
 int main(){
-  int t, n, res;
-  s(t);
-  ll a[100000];
-  ll b[100000];
-  while(t--){
-    s(n);
-    fr (i, n){
-      sll(a[i]);
+  int dp[3][3];
+  int a[3];
+  int tot_sum = 0;
+  fr (i, 3){
+    a[i] = 0;
+    fr (j, 3){
+      si(dp[i][j]);
+      a[i] += dp[i][j];
+      tot_sum += dp[i][j];
     }
-    
-    b[0] = a[0];
-    f (i, 1, n){
-      b[i] = min(a[i], b[i - 1]);
+  }
+  tot_sum /= 2;
+  fr (i, 3){
+    dp[i][i] = tot_sum - a[i];
+  }
+
+  fr (i, 3){
+    fr (j, 3){
+      cout << dp[i][j] << " ";
     }
-    res = 0;
-    fr (i, n){
-      if (b[i] == a[i]){
-	res++;
-      }
-    }
-    printf("%d\n", res);
+    cout << endl;
   }
   return 0;
 }

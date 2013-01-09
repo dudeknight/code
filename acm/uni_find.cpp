@@ -8,7 +8,7 @@
 using namespace std;
 
 struct ed{
-	int x;int y;int z;
+  int x;int y;int z;
 };
 
 int map[100000];
@@ -17,8 +17,8 @@ int n,m,ncount;
 long long res;
 
 bool comp(ed a,ed b){
-	if(a.z<b.z) return true;
-	else return false;
+  if(a.z<b.z) return true;
+  else return false;
 }
 
 int a[100000];
@@ -39,7 +39,7 @@ int main(){
   int t;
   cin>>t;
   while(t--){
-		//map.clear();v.clear();
+    //map.clear();v.clear();
     scanf("%d %d\n",&n,&m);char c;
     res=0;ncount=1;
     scanf("%s\n",s);

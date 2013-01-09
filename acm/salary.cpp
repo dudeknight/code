@@ -5,6 +5,7 @@
 #include <queue>
 #include <deque>
 #include <map>
+#include <set>
 #include <iostream>
 #include <cstring>
 #include <string>
@@ -15,36 +16,31 @@
 
 using namespace std;
 
-#define s(x) scanf("%d",&x)
+#define si(x) scanf("%d",&x)
 #define sll(x) scanf("%lld",&x)
 #define sf(x) scanf("%lf",&x)
 #define ss(x) scanf("%s",&x)
 
 #define f(i,a,b) for(int i=a;i<b;i++)
 #define fr(i,n)  f(i,0,n)
-
+#define rf(i,a,b) for(int i=a;i>=b;i--)
+#define rfr(i,n) rf(i,n-1,0)
 typedef long long ll;
 
+
 int main(){
-  int t, n, res;
-  s(t);
-  ll a[100000];
-  ll b[100000];
-  while(t--){
-    s(n);
+  int t;
+  si(t);
+  int w[1000];
+  while (t--){
+    int n; si(n);
     fr (i, n){
-      sll(a[i]);
+      si(w[i]);
     }
-    
-    b[0] = a[0];
-    f (i, 1, n){
-      b[i] = min(a[i], b[i - 1]);
-    }
-    res = 0;
-    fr (i, n){
-      if (b[i] == a[i]){
-	res++;
-      }
+    sort(w, w + n);
+    int res = 0;
+    rf(i, n - 1, 0){
+      res += w[i] - w[0];
     }
     printf("%d\n", res);
   }

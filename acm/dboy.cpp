@@ -25,28 +25,47 @@ using namespace std;
 
 typedef long long ll;
 
+
+int h[500];
+int ptl[500];
+int dp[1010];
+
 int main(){
-  int t, n, res;
+  int t, n;
   s(t);
-  ll a[100000];
-  ll b[100000];
-  while(t--){
+  
+  while (t--){
     s(n);
+    int maxi = 501;
     fr (i, n){
-      sll(a[i]);
+      s(h[i]);
+      maxi = max(maxi, h[i]);
     }
-    
-    b[0] = a[0];
-    f (i, 1, n){
-      b[i] = min(a[i], b[i - 1]);
-    }
-    res = 0;
     fr (i, n){
-      if (b[i] == a[i]){
-	res++;
+      s(ptl[i]);
+    }
+
+    maxi = 2 * maxi;
+    fr (i, maxi + 1){
+      dp[i] = 1002;
+    }
+    dp[0] = 0;
+    sort(ptl, ptl + n);
+    f (i, 1, maxi + 1){
+      fr (j, n){
+	if (ptl[j] > i){
+	  break;
+	}
+	dp[i] = min(dp[i], dp[i - ptl[j]] + 1);
       }
     }
+    
+    int res = 0;    
+    fr (i, n){
+      res += dp[2 * h[i]];
+    }
     printf("%d\n", res);
+
   }
   return 0;
 }
