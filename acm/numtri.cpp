@@ -1,6 +1,6 @@
 /*
 ID: dvdeepa1
-PROG: transfrom
+PROG: numtri
 LANG: C++
 */
 // written  by lonerdude (dvdreddy)
@@ -35,15 +35,28 @@ typedef long long ll;
 
 int main(){
 
-  //fstream fi("beads.in",fstream::in);
+  fstream fi("numtri.in",fstream::in);
   
+  int a[1000][1000]; int dp[1000][1000]; int r;
+  fi >> r;
+  fr (i, r){
+    fr (j, i + 1){
+      fi >> a[i][j];
+    }
+  }
   
-  /*
-    fi.close();
-    fstream fo("beads.out",fstream::out);	
-  */
+  fr (i, r - 1){
+    fr (j, r - 1 - i){
+      a[r - 2 - i][j] += max(a[r - 1 - i][j], a[r - 1 - i][j + 1]);
+    }
+  }
   
-  //fo.close();
+
+  fi.close();
+  fstream fo("numtri.out",fstream::out);	
+
+  fo << a[0][0] << endl;
+  fo.close();
   
   return 0;
 }

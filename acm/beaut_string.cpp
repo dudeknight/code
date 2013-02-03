@@ -15,7 +15,7 @@
 
 using namespace std;
 
-#define s(x) scanf("%d",&x)
+#define si(x) scanf("%d\n",&x)
 #define sll(x) scanf("%lld",&x)
 #define sf(x) scanf("%lf",&x)
 #define ss(x) scanf("%s",&x)
@@ -25,28 +25,33 @@ using namespace std;
 
 typedef long long ll;
 
+
 int main(){
-  int t, n, res;
-  s(t);
-  ll a[100000];
-  ll b[100000];
-  while(t--){
-    s(n);
-    fr (i, n){
-      sll(a[i]);
+  int t;
+  si(t); int inc = 1;
+  while (t--){
+    char cx[510];
+    cin.getline(cx, 505);
+    int n = strlen(cx);
+    int char_cnt[26];
+    fr (i, 26){
+      char_cnt[i] = 0;
     }
-    
-    b[0] = a[0];
-    f (i, 1, n){
-      b[i] = min(a[i], b[i - 1]);
-    }
-    res = 0;
     fr (i, n){
-      if (b[i] == a[i]){
-	res++;
+      char c = cx[i];
+      if (c >= 'A' && c <= 'Z'){
+	char_cnt[c - 'A']++;
+      } else if (c >= 'a' && c <= 'z'){
+	char_cnt[c - 'a']++;
       }
     }
-    printf("%d\n", res);
+    int res  = 0;
+    sort(char_cnt, char_cnt + 26);
+    fr (i, 26){
+      res += (char_cnt[25 - i] * (26 - i));
+    }
+    printf("Case #%d: %d\n", inc, res);
+    inc++;
   }
   return 0;
 }
